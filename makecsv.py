@@ -12,6 +12,7 @@ IPTV 源数据获取与合并工具
 单模式：python makecsv.py --jsmpeg jsmpeg_hosts.csv
 多模式：python makecsv.py --jsmpeg jsmpeg_hosts.csv --txiptv txiptv_hosts.csv --zhgxtv zhgxtv_hosts.csv
 指定天数：python makecsv.py --jsmpeg jsmpeg_hosts.csv --days 7
+无参数：python makecsv.py （使用默认文件名）
 
 参数说明：
 --days: 日期过滤天数，搜索最近N天的数据，默认为30天
@@ -1036,21 +1037,12 @@ class IPTVSourceCollector:
 def main():
     """主函数"""
     parser = argparse.ArgumentParser(description='IPTV源数据获取与合并工具')
-    parser.add_argument('--jsmpeg', help='jsmpeg模式CSV文件路径')
-    parser.add_argument('--txiptv', help='txiptv模式CSV文件路径')
-    parser.add_argument('--zhgxtv', help='zhgxtv模式CSV文件路径')
+    parser.add_argument('--jsmpeg', help='jsmpeg模式CSV文件路径', default='jsmpeg.csv')
+    parser.add_argument('--txiptv', help='txiptv模式CSV文件路径', default='txiptv.csv')
+    parser.add_argument('--zhgxtv', help='zhgxtv模式CSV文件路径', default='zhgxtv.csv')
     parser.add_argument('--days', type=int, default=30, help='日期过滤天数，默认30天')
     
     args = parser.parse_args()
-    
-    # 检查至少指定了一个模式
-    if not any([args.jsmpeg, args.txiptv, args.zhgxtv]):
-        print("错误: 请至少指定一个模式参数")
-        print("用法示例:")
-        print("  python makecsv.py --jsmpeg jsmpeg_hosts.csv")
-        print("  python makecsv.py --jsmpeg jsmpeg_hosts.csv --days 7")
-        print("  python makecsv.py --jsmpeg jsmpeg_hosts.csv --txiptv txiptv_hosts.csv --zhgxtv zhgxtv_hosts.csv --days 15")
-        sys.exit(1)
     
     # 创建收集器实例
     collector = IPTVSourceCollector(days=args.days)
