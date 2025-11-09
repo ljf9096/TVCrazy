@@ -1,4 +1,4 @@
-name: 自动更新 IPTV playlist
+name: 自动更新 IPTV playlist2
 
 on:
   workflow_dispatch:
