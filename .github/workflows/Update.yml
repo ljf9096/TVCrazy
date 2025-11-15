@@ -11,9 +11,6 @@ on:
         description: 'http://127.0.0.1:7897'
         required: false
         default: ''
-  schedule:
-    # 每天凌晨3点（UTC+8 为上午11点）
-    - cron: '0 3 * * *'
 
 jobs:
   build:
